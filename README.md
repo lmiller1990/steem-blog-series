@@ -92,20 +92,24 @@ Now localhost:8080/#/profile should show you a white page with Profile!!!. Great
 
 We installed `steem.js` earlier. Let's use that to grab some data, and then we will add storybook, and start to see container/component at work.
 
-First, inside of `/views/profile/ProfileContainer.vue`, created a `mounted` method, in which we will make the API call and get some data about the user:
+First, inside of `/views/profile/ProfileContainer.vue`, created a `mounted` method, in which we will make the API call and get some data about the user. Also we will need to import the `steem` module.
 
 ```js
-mounted () {
-  steem.api.setOptions({ url: 'https://api.steemit.com' })
-  steem.api.getAccounts(['xenetics'], (err, result) => {
-    console.log(JSON.parse((result[0].json_metadata)))
-  })
+import steem from 'steem'
+  
+export default {
+  mounted () {
+    steem.api.setOptions({ url: 'https://api.steemit.com' })
+    steem.api.getAccounts(['xenetics'], (err, result) => {
+      console.log(JSON.parse((result[0].json_metadata)))
+    })
+  }
 }
 ```
 
 If you refresh the page, you should see some data printed n the console with a ton of fields. We will be working with this data. The field we are interested in for now is `json_metadata`, which contains the account name, location, bio, and profile picture. Let's display it! But first, take a step back and and _consider_, what is the best way to do so?
 
-We now have two components to work with: `Profile.vue` and `ProfileContainer.vue`. The latter currently makes an API call. Another way to look at it is this is a _smart_ component, or what is often called a _container_ component. It fetches and manipulates data. `Profile.vue` will be a what is often known as a _presentational_ component - it will show some data, but should not have knowledge of where the data comes from, or it's contents. 
+We now have two components to work with: Profile.vue and ProfileContainer.vue. The latter currently makes an API call. Another way to look at it ProfileContainer.vue is a _smart_ component, or what is often called a _container_ component. It fetches and manipulates data. `Profile.vue` will be a what is often known as a _presentational_ component - it will show some data, but should not have knowledge of where the data comes from, or it's contents. 
 
 We will use storybook to work on our application UI - this will make the distinction between containers and components more clear.
 
