@@ -1,9 +1,13 @@
 <template>
-  <div>
-    Create Post Component
-    <form @submit.prevent="$emit('submit')">
+  <div class="wrapper">
+    <form 
+      class="form"
+      @submit.prevent="$emit('submit')"
+    >
       <slot name="description" />
-      <slot name="submit" />
+      <div class="form__submit">
+        <slot name="submit" />
+      </div>
     </form>
   </div>
 </template>
@@ -15,4 +19,17 @@
 </script>
 
 <style scoped>
+.wrapper {
+  width: 500px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__submit {
+  align-self: flex-end;
+  margin: 8px 0px;
+}
 </style>

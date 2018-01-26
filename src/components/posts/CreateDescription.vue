@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <textarea
-      :value="value"
-      @input="handleInput"
-    />
-  </div>
+  <textarea
+    rows="5"
+    class="content"
+    :value="value"
+    @input="handleInput"
+  />
 </template>
 
 <script>
@@ -26,4 +26,11 @@
 </script>
 
 <style scoped>
+.content {
+  font-size: 16pt; 
+  border: 1px solid silver;
+  border-radius: 3px;
+  padding: 8px;
+  resize: none;
+}
 </style>

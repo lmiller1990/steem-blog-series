@@ -2,7 +2,7 @@
   <button 
     type="submit"
     :disabled="submitted"
-    :class="[ submitted ? 'button--submitted' : 'button' ]"
+    :class="[ submitted ? 'button button--submitted' : 'button' ]"
   >
     Submit
   </button>
@@ -22,4 +22,21 @@
 </script>
 
 <style scoped>
+.button {
+  border-radius: 3px;
+  border: 1px solid cornflowerblue;
+  color: cornflowerblue;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  font-size: 12pt;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button--submitted {
+  opacity: 0.4 !important;
+}
 </style>
