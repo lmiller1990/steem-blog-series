@@ -5,3 +5,11 @@ Part 1: Setup Vue, Storybook.js and steem.js and display profile data
 [Medium](https://medium.com/@lachlanmiller_52885/build-social-media-platform-with-the-steem-blockchain-1-vue-js-storybook-js-and-steem-js-a25bd7629a14)
 [Steem](https://steemit.com/utopian-io/@xenetics/build-social-media-platform-with-the-steem-blockchain-1-vue-js-storybook-js-and-steem-js)
 <br>
+
+Part 2: Making a post using Steem.js and private keys
+<br>
+[Medium](https://medium.com/@lachlanmiller_52885/build-social-media-platform-with-the-steem-blockchain-2-posting-a-comment-to-the-blockchain-43521bda8463)
+<br>
+
+
+
