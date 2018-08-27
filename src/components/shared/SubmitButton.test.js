@@ -16,7 +16,7 @@ describe('SubmitButton', () => {
 
   it('has a button--submitted class when submitted is true', () => {
     const wrapper = factory({ submitted: true })
-    expect(wrapper.classes('button')).toEqual(['button--submitted'])
+    expect(wrapper.classes('button')).toContain('button--submitted')
     expect(wrapper.find('button').vnode.data.attrs.disabled).toBe(true)
   })
 })

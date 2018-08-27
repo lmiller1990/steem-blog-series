@@ -40,7 +40,7 @@ If everything went well, curl should have returned `Forbidden`. If not, check ev
 
 ## Validating the User on the Server
 
-Let's talk about JWT for a second. Basically, the client will attempt to log in using some credentials, in our case a Steem username and password. Once we authenticate the user, using Steem.js, the server will generated a "JSON Web Token" using `jsonwebtoken`, which we installed earlier. We then send the token back to the client. On all subsequent requests, the client will include the token. If the token is successfully validated by the `jsonwebtoken`, the request is allowed. Our workflow will be something like this:
+Let's talk about JWT for a second. Basically, the client will attempt to log in using some credentials, in our case a Steem username and password. Once we authenticate the user, using Steem.js, the server will generated a "JSON Web Token" using `jsonwebtoken`, which we installed earlier. We then send the token back to the client. On all subsequent requests, the client will include the token. If the token is successfully validated by the `jsonwebtoken`, the request is allowed. Our workflow wiil be something like this:
 
 1. Client sends username/password to the server's `api/login` endpoint.
 2. The server validates the login using `Steem.js`. 
