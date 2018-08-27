@@ -7,6 +7,26 @@ const app = express()
 app.use(bodyParser.json())
 steem.api.setOptions({ url: 'https://api.steemit.com' })
 
+function verifyToken(req, res, next) {
+  // 
+  // Get auth header value
+  //
+  const bearerHeader = req.headers['authorization']
+
+  //
+  // check if bearer not defined
+  // Payload looks like this:
+  // Authorization: bearer xxxxxxxxxxxx
+  //
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ')
+    req.token = bearer[1]
+    next()
+  } else {
+    res.sendStatus(403)
+  }
+}
+
 
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body 
@@ -23,66 +43,37 @@ app.post('/api/login', async (req, res) => {
   //
   // See if the private key is a match to the public key
   const isValid = steem.auth.wifIsValid(posting, pubKey)
-   
+
   if (isValid) {
-    res.json({ username })
+    // 
+    // Sign the JWT
+    //
+    jwt.sign({ username }, 'ca214cc74cc32fafdca98b12e27663e8', (err, token) => {
+      if (err) throw err
+
+      res.json({ token })
+    })
+   
   } else {
     res.sendStatus(403)
   }
-})
-
-app.listen(5000, () => console.log('Listening on port 5000.'))
-
-
-  /*
-app.post('/api/login', (req, res) => {
-  // Steem
-  console.log(req.token)
-  const user = {
-    id: 1,
-    username: 'lachlan'
-  }
-
-  jwt.sign({ user }, 'mysecret', (err, token) => {
-    res.json({ token })
-  })
 })
 
 app.post('/api/posts', verifyToken, (req, res) => {
-  console.log('here')
-  jwt.verify(req.token, 'mysecret', (err, auth) => {
-    if (err) {
-      console.log('err', err)
-      res.sendStatus(403, { err })
-    } else {
-      console.log('ok!!!!')
-      res.json({
-        msg: 'ok!',
-        auth
-      })
-    }
+  jwt.verify(req.token, 'ca214cc74cc32fafdca98b12e27663e8', (err, auth) => {
+    if (err) res.sendStatus(403, { err })
+
+    res.json({ auth })
   })
 })
 
-// FORMAT
-// Authorization: Bearer <access_token>
-//
 
-function verifyToken(req, res, next) {
-  // Get auth header value
-  const bearerHeader = req.headers['authorization']
-
-  // check if bearer not defined
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ')
-    const bearerToken = bearer[1]
-
-    req.token = bearerToken
-    next()
-  } else {
-    res.sendStatus(403)
-  }
-
+function boot(port) {
+  return app.listen(port, () => console.log(`Listening on port ${port}.`))
 }
 
-app.listen(5000, () => console.log('Listening on port 5000'))*/
+if (!module.parent) {
+  boot(5000)
+}
+
+module.exports = { boot }
