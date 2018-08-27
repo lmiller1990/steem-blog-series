@@ -1,4 +1,6 @@
 .DS_Store
+TEST.sh
+n.js
 node_modules/
 /dist/
 npm-debug.log*
