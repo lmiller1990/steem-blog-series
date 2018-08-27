@@ -27,8 +27,6 @@ function verifyToken(req, res, next) {
   }
 }
 
->>>>>>> 82c764af61cbc5495e674cf73203b7cc121ba086
-
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body 
 
